@@ -16,11 +16,11 @@ pl.figure()
 ss=pl.specgram(sig,NFFT=1024//2)
 
 # Build the phase vocoder object
-mypv=pv.PV(sig,sr,nfft=1024*4,npks=25*4,hop=256*4)
+mypv=pv.PV(sig,sr,nfft=1024*2,npks=25*24,hop=256//4)
 # Run the PV calculation
 mypv.run_pv()
 # plot the peaks that were found
-mypv.plot_time_freq()
+# mypv.plot_time_freq()
 
 # convert to sinusoidal lines
 ss=mypv.toSinSum()
@@ -30,12 +30,12 @@ ss=mypv.toSinSum()
 w=ss.synth(sr,mypv.hop/1)
 
 # plot original and resynthesis
-pl.figure()
-pl.plot(sig,label='orig')
+# pl.figure()
+# pl.plot(sig,label='orig')
 # pl.hold(True)
-pl.plot(w,label='resynth')
-pl.legend()
-pl.show()
+# pl.plot(w,label='resynth')
+# pl.legend()
+# pl.show()
 
 fig,ax=pl.subplots(2,1,sharex=True)
 ax[0].plot(np.arange(len(sig))/float(sr),sig,label='orig')

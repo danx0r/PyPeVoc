@@ -682,7 +682,6 @@ class RegPartial(object):
         return mag * np.cos(ph), (self.start_idx)*hop
 
     def synth(self, sr, hop, intermediate=False, edge=.5):
-        # print ("DB1")
         hop = int(hop)
         nfr = len(self.f)
         # frame delay due to averaging and overlap
@@ -1053,7 +1052,6 @@ class SinSum(object):
         pl.show()
 
     def synth(self, sr, hop, edge=1.0, minframes=3, phase_preserve=True):
-        print ("DB2")
         hop = int(hop)
         # edges
         dfr = self.nfft/self.hop/2.

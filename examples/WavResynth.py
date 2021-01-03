@@ -16,7 +16,7 @@ pl.figure()
 ss=pl.specgram(sig,NFFT=1024//2)
 
 # Build the phase vocoder object
-mypv=pv.PV(sig,sr,nfft=1024*2, npks=250, hop=256//8)
+mypv=pv.PV(sig,sr,nfft=1024*2, npks=50, hop=256//8)
 # Run the PV calculation
 mypv.run_pv()
 # plot the peaks that were found

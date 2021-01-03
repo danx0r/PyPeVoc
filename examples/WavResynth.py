@@ -16,7 +16,7 @@ pl.figure()
 ss=pl.specgram(sig,NFFT=1024//2)
 
 # Build the phase vocoder object
-mypv=pv.PV(sig,sr,nfft=1024*2,npks=25*24,hop=256//4)
+mypv=pv.PV(sig,sr,nfft=1024*2, npks=250, hop=256//8)
 # Run the PV calculation
 mypv.run_pv()
 # plot the peaks that were found
@@ -37,12 +37,12 @@ w=ss.synth(sr,mypv.hop/1)
 # pl.legend()
 # pl.show()
 
-fig,ax=pl.subplots(2,1,sharex=True)
-ax[0].plot(np.arange(len(sig))/float(sr),sig,label='orig')
-# ax[0].hold(True)
-ax[0].plot(np.arange(len(w))/float(sr),w,label='resynth')
-ax[0].legend()
-mypv.plot_time_freq(ax=ax[1])
+# fig,ax=pl.subplots(2,1,sharex=True)
+# ax[0].plot(np.arange(len(sig))/float(sr),sig,label='orig')
+# # ax[0].hold(True)
+# ax[0].plot(np.arange(len(w))/float(sr),w,label='resynth')
+# ax[0].legend()
+# mypv.plot_time_freq(ax=ax[1])
 
 ww=np.int16(w*32767)
 wf.write("out.wav", sr, ww)

@@ -682,6 +682,7 @@ class RegPartial(object):
         return mag * np.cos(ph), (self.start_idx)*hop
 
     def synth(self, sr, hop, intermediate=False, edge=.5):
+        # print ("DB1")
         hop = int(hop)
         nfr = len(self.f)
         # frame delay due to averaging and overlap
@@ -1052,6 +1053,7 @@ class SinSum(object):
         pl.show()
 
     def synth(self, sr, hop, edge=1.0, minframes=3, phase_preserve=True):
+        print ("DB2")
         hop = int(hop)
         # edges
         dfr = self.nfft/self.hop/2.
@@ -1059,7 +1061,11 @@ class SinSum(object):
 
         # fixme: why +2???
         w = np.zeros((max(self.end) + 2)*hop + 2*edgsamp)
-        for part in self.partial:
+        print ()
+        prog = Progress(end=len(self.partial))
+        for jj, part in enumerate(self.partial):
+            prog.update(jj)
+            sys.stdout.flush()
             if len(part.f) >= minframes:
                 if phase_preserve:
                     wi, spl_st = part.synth(sr, hop, edge=edge)
@@ -1069,6 +1075,7 @@ class SinSum(object):
                 if spl_st >= 0:
                     spl_end = spl_st + len(wi)
                     w[spl_st:spl_end] += wi
+        print ()
         return w[edgsamp:]
 
     def get_avfreq(self):

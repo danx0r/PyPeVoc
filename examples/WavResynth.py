@@ -1,19 +1,12 @@
+import sys
 import numpy  as np
 import pylab  as pl
 import pandas as pd
 import sys
 from scipy.io import wavfile as wf
-
-# sys.path.append('..')
 from pypevoc import PVAnalysis as pv
 
-sr, sig =  wf.read('pepperCl.wav')
-# sr, sig =  wf.read('pepperSx.wav')
-#sr, sig =  wf.read('perlmanVn.wav')
-#sr, sig =  wf.read('smirnoffVn.wav')
-# sr, sig =  wf.read('ProtectMarraigeInAmerica.wav')
-# sr, sig =  wf.read('SoloGuitarArpegi.wav')
-# sr, sig =  wf.read('itches.wav')
+sr, sig =  wf.read(sys.argv[1])
 
 # scale to floating point (range -1 to 1)
 sig = sig/ float(np.iinfo(sig.dtype).max)
@@ -23,7 +16,7 @@ pl.figure()
 ss=pl.specgram(sig,NFFT=1024//2)
 
 # Build the phase vocoder object
-mypv=pv.PV(sig,sr,nfft=1024,npks=25*4,hop=256*4)
+mypv=pv.PV(sig,sr,nfft=1024*4,npks=25*4,hop=256*4)
 # Run the PV calculation
 mypv.run_pv()
 # plot the peaks that were found

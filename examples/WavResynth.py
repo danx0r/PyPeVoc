@@ -7,12 +7,13 @@ from scipy.io import wavfile as wf
 # sys.path.append('..')
 from pypevoc import PVAnalysis as pv
 
-#sr, sig =  wf.read('pepperCl.wav')
+sr, sig =  wf.read('pepperCl.wav')
 # sr, sig =  wf.read('pepperSx.wav')
 #sr, sig =  wf.read('perlmanVn.wav')
 #sr, sig =  wf.read('smirnoffVn.wav')
-sr, sig =  wf.read('ProtectMarraigeInAmerica.wav')
-#sr, sig =  wf.read('SoloGuitarArpegi.wav')
+# sr, sig =  wf.read('ProtectMarraigeInAmerica.wav')
+# sr, sig =  wf.read('SoloGuitarArpegi.wav')
+# sr, sig =  wf.read('itches.wav')
 
 # scale to floating point (range -1 to 1)
 sig = sig/ float(np.iinfo(sig.dtype).max)
@@ -50,3 +51,5 @@ ax[0].plot(np.arange(len(w))/float(sr),w,label='resynth')
 ax[0].legend()
 mypv.plot_time_freq(ax=ax[1])
 
+ww=np.int16(w*32767)
+wf.write("out.wav", sr, ww)

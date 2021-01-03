@@ -11,23 +11,18 @@ sr, sig =  wf.read(sys.argv[1])
 # scale to floating point (range -1 to 1)
 sig = sig/ float(np.iinfo(sig.dtype).max)
     
-#pl.plot(sig)
-pl.figure()
-ss=pl.specgram(sig,NFFT=1024//2)
-
 # Build the phase vocoder object
-mypv=pv.PV(sig,sr,nfft=1024*2, npks=50, hop=256//8)
+mypv=pv.PV(sig,sr,nfft=2048, npks=64, hop=16)
+
 # Run the PV calculation
 mypv.run_pv()
-# plot the peaks that were found
-# mypv.plot_time_freq()
 
 # convert to sinusoidal lines
 ss=mypv.toSinSum()
 
 # resynthesise based on PV analysis
 # (reduce hop to slow down, increase to accelerate)
-w=ss.synth(sr,mypv.hop/1)
+w=ss.synth(sr,mypv.hop)
 
 # plot original and resynthesis
 # pl.figure()

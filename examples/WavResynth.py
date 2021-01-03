@@ -12,7 +12,7 @@ sr, sig =  wf.read(sys.argv[1])
 sig = sig/ float(np.iinfo(sig.dtype).max)
     
 # Build the phase vocoder object
-mypv=pv.PV(sig,sr,nfft=2048, npks=128, hop=256)
+mypv=pv.PV(sig,sr,nfft=2048, npks=96, hop=256)
 
 # Run the PV calculation
 mypv.run_pv()
